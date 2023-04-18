@@ -5,7 +5,7 @@ import board
 import busio
 import time
 
-from lcd.app import WeatherDataMenu
+from menu.WeatherDataMenu import WeatherDataMenu
 
 
 class LcdApp:
@@ -16,7 +16,7 @@ class LcdApp:
     def __init__(self):
         self.display = self.__init_display()
         self.__init_buttons()
-        self.weather_data_menu = WeatherDataMenu.WeatherDataMenu()
+        self.weather_data_menu = WeatherDataMenu()
 
     def __init_display(self) -> PCD8544:
         spi = busio.SPI(board.SCK, MOSI=board.MOSI)
