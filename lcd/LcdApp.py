@@ -1,3 +1,4 @@
+
 from adafruit_pcd8544 import PCD8544
 from digitalio import DigitalInOut
 import digitalio
@@ -5,7 +6,7 @@ import board
 import busio
 import time
 
-from menu.WeatherDataMenu import WeatherDataMenu
+from app.menu.WeatherDataMenu import WeatherDataMenu
 
 
 class LcdApp:
@@ -31,17 +32,23 @@ class LcdApp:
         return display
 
     def __init_buttons(self):
-        self.terminate_button = digitalio.DigitalInOut(board.PA12)
+        self.terminate_button = digitalio.DigitalInOut(board.PD14)
         self.terminate_button.switch_to_input(pull=digitalio.Pull.UP)
 
     def __loop_handler(self):
-        self.weather_data_menu.display_menu(self.display, 10, 20, 30)
+        self.weather_data_menu.display_menu(self.display)
+
+    def __end_execution(self):
+        self.display.fill(0)
+        self.display.show()
 
     def main_loop(self) -> None:
         while True:
             self.display.fill(0)
             if not self.terminate_button.value:
+                self.__end_execution()
                 break
+
             self.__loop_handler()
             self.display.show()
-            time.sleep(0.01)
+            time.sleep(0.1)

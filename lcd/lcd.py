@@ -1,4 +1,4 @@
-from app.LcdApp import LcdApp
+from LcdApp import LcdApp
 
 app = LcdApp()
 app.main_loop()
