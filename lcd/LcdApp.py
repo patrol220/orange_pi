@@ -44,11 +44,9 @@ class LcdApp:
 
     def main_loop(self) -> None:
         while True:
-            self.display.fill(0)
             if not self.terminate_button.value:
                 self.__end_execution()
                 break
 
             self.__loop_handler()
-            self.display.show()
             time.sleep(0.1)
