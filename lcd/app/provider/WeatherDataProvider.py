@@ -2,8 +2,18 @@ from adafruit_bmp280 import Adafruit_BMP280_I2C
 from adafruit_ahtx0 import AHTx0
 import board
 
+# todo refactor to separate file, rethink singleton usage
+class Singleton(type):
+    _instances = {}
 
-class WeatherDataProvider:
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
+# without singleton readings gets buggy
+class WeatherDataProvider(metaclass=Singleton):
     weather_module_bmp280: Adafruit_BMP280_I2C
     weather_module_aht20: AHTx0
 
