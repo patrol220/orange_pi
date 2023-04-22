@@ -26,7 +26,7 @@ class WeatherDataProvider:
     def get_temperature(self) -> float:
         return self.weather_module_bmp280.temperature
 
-    def get_humidity(self) -> int:
+    def get_humidity(self) -> float:
         return self.weather_module_aht20.relative_humidity
 
     def get_pressure(self) -> float:

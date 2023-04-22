@@ -17,7 +17,7 @@ class LcdApp:
     def __init__(self):
         self.display = self.__init_display()
         self.__init_buttons()
-        self.weather_data_menu = WeatherDataMenu()
+        self.weather_data_menu = WeatherDataMenu(self.display, "Current data")
 
     def __init_display(self) -> PCD8544:
         spi = busio.SPI(board.SCK, MOSI=board.MOSI)
@@ -36,7 +36,7 @@ class LcdApp:
         self.terminate_button.switch_to_input(pull=digitalio.Pull.UP)
 
     def __loop_handler(self):
-        self.weather_data_menu.display_menu(self.display)
+        self.weather_data_menu.show()
 
     def __end_execution(self):
         self.display.fill(0)
